@@ -7,11 +7,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Dodona repo
+      uses: actions/checkout@v2
       with:
         repository: 'dodona-edu/dodona'
         ref: 'develop'
-    - uses: actions/checkout@v2
+        path: dodona
+    - name: Checkout docker files
+      uses: actions/checkout@v2
+      with:
+        path: docker-files
+    - name: Copy files
+      run: |
+        cp docker-files/* dodona/
+        cd dodona
     - name: Login to the container registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
     - name: Download the latest image for caching
