@@ -21,6 +21,8 @@ jobs:
       run: |
         cp docker-files/* dodona/
         cd dodona
+    - run: pwd
+    - run: ls
     - name: Login to the container registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
     - name: Download the latest image for caching
