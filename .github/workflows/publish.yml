@@ -12,17 +12,12 @@ jobs:
       with:
         repository: 'dodona-edu/dodona'
         ref: 'develop'
-        path: dodona
     - name: Checkout docker files
       uses: actions/checkout@v2
       with:
         path: docker-files
     - name: Copy files
-      run: |
-        cp docker-files/* dodona/
-        cd dodona
-    - run: pwd
-    - run: ls
+      run: cp docker-files/* .
     - name: Login to the container registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
     - name: Download the latest image for caching
