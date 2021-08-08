@@ -43,6 +43,10 @@ RUN yarn install
 # Copy the rest of the application into the container.
 COPY . /app
 
+# Remove the .git folder, without doing this the public repositories cannot be
+# cloned in the seeds.
+RUN rm -r /app/.git
+
 # Patch the database host. This is needed because the localhost socket does not
 # exist on this container.
 RUN sed -i 's+localhost+database+g' /app/config/database.yml
